@@ -24,7 +24,7 @@
     "eslint": "5.16.0"
   },
   "scripts": {
-    "start": "cross-env DEBUG=skipper:file NODE_ENV=production nodemon -V app.js",
+    "start": "nodemon -V app.js",
     "local": "cross-env DEBUG=skipper:file MONGODB_URL='mongodb://localhost:27017/sails-file-example' NODE_ENV=development nodemon -V app.js",
     "test": "npm run lint && npm run custom-tests && echo 'Done.'",
     "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",

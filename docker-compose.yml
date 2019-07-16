@@ -1,0 +1,60 @@
+version: "3"
+networks:
+  sails-file-example-net:
+    driver: "bridge"
+services:
+  mongo:
+    image: mongo
+    container_name: sails-file-example-mongo
+    networks:
+      - sails-file-example-net
+  node1:
+    build:
+      context: .
+      dockerfile: ./sails-file-example.dockerfile
+    image: evsoncustodio/sails-file-example-node1
+    container_name: sails-file-example-node1
+    ports:
+      - "1337"
+    networks:
+      - sails-file-example-net
+    depends_on:
+      - "mongo"
+  node2:
+    build:
+      context: .
+      dockerfile: ./sails-file-example.dockerfile
+    image: evsoncustodio/sails-file-example-node2
+    container_name: sails-file-example-node2
+    ports:
+      - "1337"
+    networks:
+      - sails-file-example-net
+    depends_on:
+      - "mongo"
+  node3:
+    build:
+      context: .
+      dockerfile: ./sails-file-example.dockerfile
+    image: evsoncustodio/sails-file-example-node3
+    container_name: sails-file-example-node3
+    ports:
+      - "1337"
+    networks:
+      - sails-file-example-net
+    depends_on:
+      - "mongo"
+  nginx:
+    build:
+      context: .
+      dockerfile: ./front.dockerfile
+    image: evsoncustodio/sails-file-example-nginx
+    container_name: sails-file-example-nginx
+    ports: 
+      - "80:80"
+    networks:
+      - sails-file-example-net
+    depends_on:
+      - "node1"
+      - "node2"
+      - "node3"
